@@ -9,6 +9,8 @@ public class GameControllImplements implements GameControlls{
 	
 	private Scanner scan = new Scanner(System.in);
 
+	
+	// not used yet
 	@Override
 	public String enterPassword() {
 		
@@ -27,11 +29,11 @@ public class GameControllImplements implements GameControlls{
 
 	@Override
 	public String chooseHero() {
-		System.out.println("Enter A for Warrior, Enter B for Hunter");
+		System.out.println("Enter A for Warrior, Enter B for Hunter, Enter C for Witch");
 		
 		String choice = scan.nextLine();
 		
-		if(!choice.equalsIgnoreCase("a") && !choice.equalsIgnoreCase("b")) {
+		if(!choice.equalsIgnoreCase("a") && !choice.equalsIgnoreCase("b") && !choice.equalsIgnoreCase("c") ) {
 			
 			System.out.println("Enter a valid letter to choose HERO!");
 			choice = chooseHero();
@@ -56,7 +58,7 @@ public class GameControllImplements implements GameControlls{
 	@Override
 	public void printResult(Game game) {
 		
-		if(game.getHeroA().getHealth() == game.getHeroB().getHealth()) {
+		if(game.getHeroA().getHealth() == game.getHeroB().getHealth())   {
 			System.out.println("The game is DRAW!");
 		}
 		else {
@@ -77,7 +79,7 @@ public class GameControllImplements implements GameControlls{
 
 	@Override
 	public String chooseMove(String player) {
-		System.out.println("Player: "+ player + "for attack type A. For defense type B");
+		System.out.println("Player: "+ player + "For attack type A. For defense type B");
 		String move = scan.nextLine();
 		if(!move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("b")) {
 			System.out.println("Wrong input! Player: "+ player + "for attack type A. For defense type B");

@@ -2,6 +2,7 @@ package main.sk.peterizdinsky.GameLogic;
 
 import main.sk.peterizdinsky.GameControl.GameControllImplements;
 import main.sk.peterizdinsky.Model.Warior;
+import main.sk.peterizdinsky.Model.Witch;
 import main.sk.peterizdinsky.Model.Hunter;
 import main.sk.peterizdinsky.Model.Hero;
 
@@ -24,7 +25,7 @@ public class Game {
 	}
 
 	private Hero chooseHero(String hero) {
-		return hero.equalsIgnoreCase("a") ? new Warior() : new Hunter();
+		return hero.equalsIgnoreCase("a") ? new Warior() :hero.equalsIgnoreCase("b") ? new Hunter() : new Witch();
 	}
 
 	public String getWinningPlayer() {
@@ -33,8 +34,8 @@ public class Game {
 
 	public void gameStart() {
 		Hero[] heroes = new Hero[2];
-		heroes[0] = heroA instanceof Warior ? (Warior) heroA : (Hunter) heroA;
-		heroes[1] = heroB instanceof Warior ? (Warior) heroB : (Hunter) heroB;
+		heroes[0] = heroA instanceof Warior ? (Warior) heroA :  heroA instanceof Hunter ? (Hunter) heroA : (Witch) heroA;
+		heroes[1] = heroB instanceof Warior ? (Warior) heroB :  heroB instanceof Hunter ? (Hunter) heroB : (Witch) heroB;
 		for (int i = 0; i < moveCount*2; i++) {
 			if (heroes[0].getHealth() > 0 && heroes[1].getHealth() > 0) {
 				int modulo = i % 2;
@@ -74,10 +75,18 @@ public class Game {
 				warriorAttack(heroes, modulo, warrior);
 			}
 
-		} else {
+		} 
+		if (heroes[modulo] instanceof Hunter) {
 			Hunter hunter = ((Hunter) heroes[modulo]);
 			if (!hunter.defend()) {
 				hunterAttack(heroes, modulo, hunter);
+			}
+
+		}
+		if (heroes[modulo] instanceof Witch) {
+			Witch witch = ((Witch) heroes[modulo]);
+			if (!witch.defend()) {
+				witchAttack(heroes, modulo, witch);
 			}
 
 		}
@@ -89,10 +98,16 @@ public class Game {
 			warriorAttack(heroes, modulo, warrior);
 
 		} else {
+			if (heroes[modulo] instanceof Hunter) {
 			Hunter hunter = ((Hunter) heroes[modulo]);
 			hunterAttack(heroes, modulo, hunter);
-
+			} else {
+				Witch witch = ((Witch) heroes[modulo]);
+				witchAttack(heroes, modulo, witch);
+			}
 		}
+		
+			
 	}
 
 	private void hunterAttack(Hero[] heroes, int modulo, Hunter hunter) {
@@ -108,6 +123,14 @@ public class Game {
 			warrior.attack(heroes[1]);
 		} else {
 			warrior.attack(heroes[0]);
+		}
+	}
+	
+	private void witchAttack(Hero[] heroes, int modulo, Witch witch) {
+		if (modulo == 0) {
+			witch.attack(heroes[1]);
+		} else {
+			witch.attack(heroes[0]);
 		}
 	}
 
