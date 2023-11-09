@@ -55,10 +55,19 @@ public class GameControllImplements implements GameControlls{
 
 	@Override
 	public void printResult(Game game) {
-		// TODO Auto-generated method stub
-		scan.close();
+		
+		if(game.getHeroA().getHealth() == game.getHeroB().getHealth()) {
+			System.out.println("The game is DRAW!");
+		}
+		else {
+			if(game.getHeroA().getHealth()> game.getHeroB().getHealth()) {
+			System.out.println("Hero A won");
+		}
+		else {
+		System.out.println("Hero B won");			
+			}
+		}
 	}
-
 	public void printPLayersLife(Hero heroA, Hero heroB) {
 		System.out.println("Player A health: "+heroA.getHealth());
 		System.out.println("Player B health: "+heroB.getHealth());
